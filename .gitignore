@@ -1,0 +1,4 @@
+.env
+/vendor
+/config/config.db.ini
+/.idea
