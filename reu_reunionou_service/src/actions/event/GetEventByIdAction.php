@@ -20,9 +20,10 @@ final class GetEventByIdAction
             $embeds = $request->getQueryParams()['embed'] ?? null;
 
             if ($embeds !== null){
-                $embeds = explode('&', $embeds);
+                $embeds = explode(',', $embeds);
             }
             //echo($embeds);
+          //  var_dump($embeds);
             $eventService = new EventService();
             $routeParser = RouteContext::fromRequest($request)->getRouteParser();
             $event = $eventService->getEventById($args['id'], $embeds);
@@ -35,7 +36,13 @@ final class GetEventByIdAction
             'event' => $event,
             'links' => [
                 'invitations' => [
-                   // 'href' => $routeParser->urlFor('getOrderItemsById', ['id' => $event['id']])
+                    'href' => $routeParser->urlFor('getEventInvitationsById', ['id' => $event['id']])
+                ],
+                'comments' => [
+                    'href' => $routeParser->urlFor('getEventCommentsById', ['id' => $event['id']])
+                ],
+                'created by' => [
+                    'href' => $routeParser->urlFor('getEventUserById', ['id' => $event['id']])
                 ],
                 'self' => [
                     'href' => $routeParser->urlFor('getEventById', ['id' => $event['id']])

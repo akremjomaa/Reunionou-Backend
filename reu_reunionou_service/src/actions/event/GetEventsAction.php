@@ -22,15 +22,22 @@ final class GetEventsAction
             $eventService = new EventService();
             $events = $eventService->getEvents();
 
-
-        } catch (Exception $e) {
+        }
+        catch (Exception $e) {
             throw new HttpNotFoundException($request, $e->getMessage());
         }
+
+        $eventsData = [];
+        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+        foreach ($events as $event){
+            $eventsData[] = ['event' => $event,
+                'links' => ['self' => ['href' => $routeParser->urlFor('getEventById', ['id'=>$event['id']])
+                ]]];}
         $data = [
             'type' => 'collection',
             'count' => count($events),
             'events' =>
-                $events
+                $eventsData
         ];
 
         $response = $response->withHeader('Content-type', 'application/json;charset=utf-8')->withStatus(202);

@@ -9,20 +9,21 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Exception\HttpNotFoundException;
 
-final class GetEventUserByIdAction
+final class GetEventCommentsByIdAction
 {
     public function __invoke(Request $request, Response $response, array $args): Response
     {
         try{
             $eventService = new EventService();
-            $user = $eventService->getEventUser($args['id']);
+            $comments = $eventService->getEventComments($args['id']);
         } catch (EventExceptionNotFound $e) {
             throw new HttpNotFoundException($request, $e->getMessage());
         }
 
         $data = [
-            'type' => 'resource',
-            'user' => $user,
+            'type' => 'collection',
+            'count' => count($comments),
+            'comments' => $comments,
         ];
 
         $response = $response->withHeader('Content-type', 'application/json;charset=utf-8')->withStatus(200);
