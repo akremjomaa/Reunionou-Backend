@@ -12,5 +12,6 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 return function (App $app) {
     $app->group('/', function (RouteCollectorProxy $app) {
         $app->get('users[/]', \events\actions\GetUsersAction::class)->setName('users');
+        $app->post('users/new[/]', \events\actions\PostUserAction::class)->setName('create-user');
    });
 };
