@@ -10,7 +10,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 return function (App $app) {
-    $app->group('/', function (RouteCollectorProxy $app) {
-
-    });
+    //$app->group('/test', function (RouteCollectorProxy $app) {
+        $app->get('/users[/]', \events\actions\GetUsersAction::class)->setName('users');
+   // });
 };

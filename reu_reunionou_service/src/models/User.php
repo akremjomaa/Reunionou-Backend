@@ -1,27 +1,28 @@
 <?php
+
 namespace events\models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class User extends  Model{
+class User extends Model {
 
     protected $table = 'user';
     protected  $primaryKey = 'id';
     public $timestamps = false;
 
 
-    public function events(): HasMany
+    public function events() : HasMany
     {
-        return $this->hasMany('events\models\Event', 'id');
+        return $this->hasMany(Event::class, 'id', 'id');
     }
-    public function comments(): HasMany
+    public function comments() : HasMany
     {
-        return $this->hasMany('events\models\Comment', 'id');
+        return $this->hasMany(Comment::class, 'id', 'id');
     }
 
-    public function invitations(): HasMany
+    public function invitations() : HasMany
     {
-        return $this->hasMany('events\models\Invitation', 'id');
+        return $this->hasMany(Invitation::class, 'id', 'id');
     }
 }
