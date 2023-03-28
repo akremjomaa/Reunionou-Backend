@@ -1,6 +1,6 @@
 <?php
-namespace events\errors\renderer;
 
+namespace events\errors\renderer;
 
 use Slim\Interfaces\ErrorRendererInterface;
 use Throwable;
