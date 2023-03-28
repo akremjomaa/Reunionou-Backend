@@ -22,7 +22,7 @@ final class PostUserAction
             if (ReunionouService::CreateUser($data)) {
                 throw new HttpNoContentException($request);
             } else {
-                throw new HttpInternalServerErrorException($request, "L'utilisateur n'a pû être enregistée");
+                throw new HttpInternalServerErrorException($request, "L'utilisateur n'a pû être enregisté");
             }
         } catch (\Throwable $ex) {
             throw $ex;
