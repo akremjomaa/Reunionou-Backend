@@ -17,5 +17,7 @@ final class ReunionouService {
         $query->email = $data['email'];
         $query->password = $data['password'];
         $query->save();
+
+        return true;
     }
 }

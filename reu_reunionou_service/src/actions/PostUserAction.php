@@ -3,7 +3,7 @@
 namespace events\actions;
 
 use events\services\ReunionouService;
-use lbs\order\errors\exceptions\HttpNoContentException;
+use events\errors\exceptions\HttpNoContentException;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Exception\HttpInternalServerErrorException;
