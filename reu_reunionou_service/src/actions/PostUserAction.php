@@ -9,13 +9,9 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Exception\HttpInternalServerErrorException;
 use Slim\Exception\HttpMethodNotAllowedException;
 use Slim\Exception\HttpNotFoundException;
-use Throwable;
 
 final class PostUserAction
 {
-    /**
-     * @throws Throwable
-     */
     public function __invoke(Request $request, Response $response): Response
     {
             $request->getMethod() != "POST" ?? throw new HttpMethodNotAllowedException($request, "Methode non autorisée");
@@ -26,9 +22,9 @@ final class PostUserAction
             if (ReunionouService::CreateUser($data)) {
                 throw new HttpNoContentException($request);
             } else {
-                throw new HttpInternalServerErrorException($request, "La ressource n'a pû être enregistée");
+                throw new HttpInternalServerErrorException($request, "L'utilisateur n'a pû être enregistée");
             }
-        } catch (Throwable $ex) {
+        } catch (\Throwable $ex) {
             throw $ex;
         }
     }
