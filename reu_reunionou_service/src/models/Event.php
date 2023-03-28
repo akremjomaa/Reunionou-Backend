@@ -12,7 +12,7 @@ class Event extends  Model{
     public $timestamps = false;
 
 
-    public function user(): BelongsTo
+    public function user()
     {
         return $this->belongsTo('events\models\User', 'user_id');
     }

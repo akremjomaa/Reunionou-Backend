@@ -2,15 +2,16 @@
 
 namespace config;
 
+use events\actions\event\GetEventByIdAction;
 use Slim\App;
 use Slim\Routing\RouteCollectorProxy;
 
-use events\middlewares\ValidatorPutOrderMiddleware;
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
+
 
 return function (App $app) {
-    $app->group('/', function (RouteCollectorProxy $app) {
+    $app->group('/v1', function (RouteCollectorProxy $app) {
+        $app->get('/events[/]', \events\actions\event\GetEventsAction::class)->setName('getEvents');
+        $app->get('/events/{id}[/]', GetEventByIdAction::class)->setName('getEventById');
 
     });
 };

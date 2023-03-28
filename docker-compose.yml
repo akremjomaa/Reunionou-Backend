@@ -25,7 +25,7 @@ services:
       - '19080:80'
       - '19043:443'
     volumes:
-      - './reu_reunionou_service:/var/www'
+      - '.:/var/www'
     working_dir: /var/www/
     networks:
       - reu.net
@@ -48,7 +48,7 @@ services:
     networks:
       - reu.net
     volumes:
-      - './reu_reunionou_service/sql:/var/sql'
+      - './sql:/var/sql'
 
   #
   # service administration des bases sql
