@@ -39,4 +39,13 @@ final class ReunionouService {
             throw $ex;
         }
     }
+
+    public static function DeleteUser(int $id) {
+        try {
+            $query = User::find($id);
+            return $query->delete();
+        } catch (\Throwable $ex) {
+            throw $ex;
+        }
+    }
 }
