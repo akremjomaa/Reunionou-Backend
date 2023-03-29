@@ -4,6 +4,7 @@ namespace config;
 
 use events\actions\event\GetEventByIdAction;
 use Slim\App;
+use Slim\Exception\HttpNotFoundException;
 use Slim\Routing\RouteCollectorProxy;
 
 

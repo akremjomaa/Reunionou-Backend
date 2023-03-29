@@ -8,32 +8,30 @@ services:
   #####################################################
 
   #######################################
-  ###  Order Service : prise de commandes, suivi des commandes
-  ###  api api.order
-  ###  database gérée par le service mysql.order (sql)
-  ###  requêtes HTTP vers api.catalog et api.fidelisation
+  ###  Reunionou Service
+  ###  api.reunionou.local
   #######################################
 
-  # service api.order : api pour la prise de commandes et le suivi de commandes
+  # service api.reunionou : api pour la organiser des réunions.
   #
   api.reunionou:
     image: 'canals/php:latest'
     environment:
       - VHOST_HOSTNAME=api.reunionou.local
-      - VHOST_DOCROOT=/var/www/
+      - VHOST_DOCROOT=/var/www/public
     ports:
       - '19080:80'
       - '19043:443'
     volumes:
-      - '.:/var/www'
+      - './reu_reunionou_service:/var/www'
     working_dir: /var/www/
     networks:
       - reu.net
     depends_on:
       - reunionou.db
 
-  # service sql pour le stockage des commandes -
-  # utilisé par l'api order
+  # service sql pour le stockage des réunions. -
+  # utilisé par l'api reunionou
 
   reunionou.db:
     image: 'mariadb:latest'
@@ -48,7 +46,7 @@ services:
     networks:
       - reu.net
     volumes:
-      - './sql:/var/sql'
+      - './reu_reunionou_service/sql:/var/sql'
 
   #
   # service administration des bases sql
