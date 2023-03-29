@@ -2,3 +2,4 @@
 /vendor
 /config/config.db.ini
 /.idea
+/composer.lock
