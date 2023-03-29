@@ -1,6 +1,7 @@
 <?php
 
 namespace config;
+
 use http\Client\Response;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Exception\HttpMethodNotAllowedException;
