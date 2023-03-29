@@ -1,8 +1,8 @@
 <?php
 
-namespace events\actions;
+namespace events\actions\user;
 
-use events\services\ReunionouService;
+use events\services\utils\UserService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Exception\HttpMethodNotAllowedException;
@@ -15,7 +15,7 @@ final class GetUserByIdAction
 
         try {
 
-            $user = ReunionouService::GetUserById($args['id']);
+            $user = UserService::GetUserById($args['id']);
 
             $data = [
                 'type' => 'resource',

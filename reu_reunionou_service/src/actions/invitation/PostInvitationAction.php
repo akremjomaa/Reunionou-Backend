@@ -10,6 +10,7 @@ use Slim\Exception\HttpNotFoundException;
 
 final class PostInvitationAction {
 
+    // create invitation
     public function __invoke(Request $request, Response $response, array $args): Response
     {
         $data = $request->getParsedBody();

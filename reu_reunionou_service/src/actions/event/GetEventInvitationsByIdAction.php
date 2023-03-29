@@ -12,6 +12,7 @@ use Slim\Routing\RouteContext;
 
 final class GetEventInvitationsByIdAction
 {
+    //get invitations related to this event
     public function __invoke(Request $request, Response $response, array $args): Response
     {
         try{

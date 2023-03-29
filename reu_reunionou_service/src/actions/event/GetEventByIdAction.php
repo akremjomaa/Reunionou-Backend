@@ -11,19 +11,19 @@ use Slim\Routing\RouteContext;
 
 final class GetEventByIdAction
 {
-
+// get event by id with his own link and all the links towards related models (invitations , comments and user)
     public function __invoke(Request $request, Response $response, array $args): Response
     {
 
         try {
+            // adding optional embed for getting comments , invitations and user related to this event
 
             $embeds = $request->getQueryParams()['embed'] ?? null;
 
             if ($embeds !== null){
                 $embeds = explode(',', $embeds);
             }
-            //echo($embeds);
-          //  var_dump($embeds);
+
             $eventService = new EventService();
             $routeParser = RouteContext::fromRequest($request)->getRouteParser();
             $event = $eventService->getEventById($args['id'], $embeds);
@@ -31,6 +31,7 @@ final class GetEventByIdAction
             throw new HttpNotFoundException($request, $e->getMessage());
         }
 
+        // adding links towards invitations , comments and user .
         $data = [
             'type' => 'resource',
             'event' => $event,

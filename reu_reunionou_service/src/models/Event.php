@@ -14,7 +14,7 @@ class Event extends  Model{
    // protected $dates = ['date'];
     public function user(): BelongsTo
     {
-        return $this->belongsTo('events\models\User', 'user_id');
+        return $this->belongsTo('events\models\User', 'id');
     }
 
     public function comments(): HasMany

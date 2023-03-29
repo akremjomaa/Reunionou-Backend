@@ -11,6 +11,8 @@ use Slim\Exception\HttpNotFoundException;
 
 final class GetEventCommentsByIdAction
 {
+    //get comments related to this event
+
     public function __invoke(Request $request, Response $response, array $args): Response
     {
         try{

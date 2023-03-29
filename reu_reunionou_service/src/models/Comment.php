@@ -12,11 +12,11 @@ class Comment extends  Model{
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo('events\models\User', 'user_id');
+        return $this->belongsTo('events\models\User', 'id');
     }
 
     public function event(): BelongsTo
     {
-        return $this->belongsTo('events\models\Event', 'event_id');
+        return $this->belongsTo('events\models\Event', 'id');
     }
 }
