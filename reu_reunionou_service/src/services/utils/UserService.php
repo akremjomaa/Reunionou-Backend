@@ -19,7 +19,7 @@ final class UserService {
     }
 
     // create user
-    public static function CreateUser($data) {
+    public static function createUser($data) {
         $query = new User;
         $query->name = $data['name'];
         $query->firstname = $data['firstname'];
