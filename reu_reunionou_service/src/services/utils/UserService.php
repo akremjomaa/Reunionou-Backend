@@ -1,31 +1,42 @@
 <?php
 
-namespace events\services;
+namespace events\services\utils;
 
 use events\models\User;
 
-final class ReunionouService {
+final class UserService {
+
+    //get list of users
     public static function getUsers() {
         $query = User::select('id', 'firstname', 'name as lastname', 'email', 'password', 'status');
         return $query->get()->toArray();
     }
 
+    // get user by id
     public static function getUserById(int $id) {
         $query = User::select('id', 'firstname', 'name as lastname', 'email', 'password', 'status')->where('id', '=', $id);
         return $query->get()->toArray();
     }
 
+    // create user
     public static function CreateUser($data) {
         $query = new User;
         $query->name = $data['name'];
         $query->firstname = $data['firstname'];
         $query->email = $data['email'];
         $query->password = $data['password'];
+
+        // status can be nullable
+
+        if (isset($data['status'])) {
+            $query->status = $data['status'];
+        }
         $query->save();
 
         return true;
     }
 
+    // update user by id
     public static function ModifyUser(int $id, array $data) {
         try {
             $query = User::find($id);
@@ -40,6 +51,7 @@ final class ReunionouService {
         }
     }
 
+    // delete user by id
     public static function DeleteUser(int $id) {
         try {
             $query = User::find($id);

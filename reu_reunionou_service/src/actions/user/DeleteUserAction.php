@@ -1,9 +1,9 @@
 <?php
 
-namespace events\actions;
+namespace events\actions\user;
 
 use events\errors\exceptions\HttpNoContentException;
-use events\services\ReunionouService;
+use events\services\utils\UserService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Exception\HttpInternalServerErrorException;
@@ -15,7 +15,7 @@ final class DeleteUserAction {
 
         try {
 
-            if (ReunionouService::DeleteUser($args['id'])) {
+            if (UserService::DeleteUser($args['id'])) {
                 throw new HttpNoContentException($request);
             } else {
                 throw new HttpInternalServerErrorException($request, "L'utilisateur n'existe pas !");

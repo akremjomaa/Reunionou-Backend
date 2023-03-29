@@ -1,9 +1,9 @@
 <?php
 
-namespace events\actions;
+namespace events\actions\user;
 
 use events\errors\exceptions\HttpNoContentException;
-use events\services\ReunionouService;
+use events\services\utils\UserService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Exception\HttpInternalServerErrorException;
@@ -19,7 +19,7 @@ final class PutUserAction
 
 
         if (isset($data['name']) && isset($data['firstname']) && isset($data['email']) && isset($data['password'])) {
-            if (ReunionouService::ModifyUser($args["id"], $data)) {
+            if (UserService::ModifyUser($args["id"], $data)) {
                 throw new HttpNoContentException($request);
             } else {
                 throw new HttpInternalServerErrorException($request, "L'utilisateur n'a pû être modifié");

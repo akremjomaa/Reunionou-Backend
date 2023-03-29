@@ -15,7 +15,7 @@ use Slim\Exception\HttpNotFoundException;
 
 final class GetEventsAction
 {
-
+    // get all the list of events with their links
     public function __invoke(Request $request, Response $response, array $args): Response
     {
         try {
