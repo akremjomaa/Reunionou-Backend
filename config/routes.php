@@ -9,6 +9,8 @@ use Slim\Routing\RouteCollectorProxy;
 
 return function (App $app) {
 
+    // event  routes
+
     $app->group('/events', function (RouteCollectorProxy $app) {
         $app->get('[/]', \events\actions\event\GetEventsAction::class)->setName('getEvents');
         $app->get('/{id}[/]', GetEventByIdAction::class)->setName('getEventById');
@@ -19,16 +21,25 @@ return function (App $app) {
 
     });
 
+    // invitation routes
     $app->group('/invitations', function (RouteCollectorProxy $app){
         $app->post('[/]', \events\actions\invitation\PostInvitationAction::class)->setName('postInvitation');
     });
-    
+
+    // comment routes
+
+    $app->group('/comments', function (RouteCollectorProxy $app){
+        $app->post('[/]', \events\actions\comment\PostCommentAction::class)->setName('postComment');
+    });
+
+    // user routes
+
        $app->group('/users', function (RouteCollectorProxy $app) {
-        $app->get('[/]', \reu_reunionou_service\src\actions\user\GetUsersAction::class)->setName('users');
-        $app->get('/{id}[/]', \reu_reunionou_service\src\actions\user\GetUserByIdAction::class)->setName('user');
-        $app->post('/new[/]', \reu_reunionou_service\src\actions\user\PostUserAction::class)->setName('create-user');
-        $app->put('/{id}[/]', \reu_reunionou_service\src\actions\user\PutUserAction::class)->setName('modify-user');
-        $app->delete('/{id}[/]', \reu_reunionou_service\src\actions\user\DeleteUserAction::class)->setName('delete-user');
+        $app->get('[/]', \events\actions\user\GetUsersAction::class)->setName('users');
+        $app->get('/{id}[/]', \events\actions\user\GetUserByIdAction::class)->setName('user');
+        $app->post('/new[/]', \events\actions\user\PostUserAction::class)->setName('create-user');
+        $app->put('/{id}[/]', \events\actions\user\PutUserAction::class)->setName('modify-user');
+        $app->delete('/{id}[/]', \events\actions\user\DeleteUserAction::class)->setName('delete-user');
    });
  
 };
