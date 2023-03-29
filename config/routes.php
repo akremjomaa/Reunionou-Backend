@@ -37,9 +37,13 @@ return function (App $app) {
        $app->group('/users', function (RouteCollectorProxy $app) {
         $app->get('[/]', \events\actions\user\GetUsersAction::class)->setName('users');
         $app->get('/{id}[/]', \events\actions\user\GetUserByIdAction::class)->setName('user');
-        $app->post('/new[/]', \events\actions\user\PostUserAction::class)->setName('create-user');
+        $app->post('[/]', \events\actions\user\PostUserAction::class)->setName('create-user');
         $app->put('/{id}[/]', \events\actions\user\PutUserAction::class)->setName('modify-user');
         $app->delete('/{id}[/]', \events\actions\user\DeleteUserAction::class)->setName('delete-user');
    });
+
+      $app->map(['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], '/{routes:.+}', function ($request, $response) {
+          throw new HttpNotFoundException($request);
+      });
  
 };
