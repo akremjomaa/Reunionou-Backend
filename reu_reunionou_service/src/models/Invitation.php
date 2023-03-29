@@ -12,10 +12,10 @@ class Invitation extends  Model{
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo('events\models\User', 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
     public function event(): BelongsTo
     {
-        return $this->belongsTo('events\models\Event', 'event_id');
+        return $this->belongsTo(Event::class, 'event_id');
     }
 }

@@ -11,7 +11,7 @@ class Event extends  Model{
     protected  $primaryKey = 'id';
     public $timestamps = false;
 
-
+   // protected $dates = ['date'];
     public function user(): BelongsTo
     {
         return $this->belongsTo('events\models\User', 'user_id');
