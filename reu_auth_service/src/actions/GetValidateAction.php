@@ -1,6 +1,6 @@
 <?php
 
-namespace auth\actions\validate;
+namespace auth\actions;
 
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;

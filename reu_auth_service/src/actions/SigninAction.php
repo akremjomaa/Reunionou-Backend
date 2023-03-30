@@ -1,6 +1,6 @@
 <?php
 
-namespace auth\actions\signin;
+namespace auth\actions;
 
 use Firebase\JWT\JWT;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -8,7 +8,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 use auth\services\utils\AccountService;
 
-final class SigninAction {
+class SigninAction {
 
     private $secret = 's6Mn7HjCkn3GOnE3j6nSN1NeHQPm3WpdnzuaiXVymxBcZ9ZG5GhILeN9VErwxhe';
 

@@ -11,7 +11,7 @@ final class MongoClient {
     private array|bool $config;
 
     public function __construct() {
-        $this->config = parse_ini_file(realpath(__DIR__ . '/../../config/config.db.ini'));
+        $this->config = parse_ini_file(realpath(__DIR__ . '/../../config/config.ini'));
     }
 
     public function getClient(): Client {
