@@ -16,7 +16,10 @@ final class DeleteUserAction {
         try {
 
             if (UserService::DeleteUser($args['id'])) {
-                throw new HttpNoContentException($request);
+                $response = $response->withHeader('Content-type', 'application/json;charset=utf-8')->withStatus(202);
+                $response->getBody();
+
+                return $response;
             } else {
                 throw new HttpInternalServerErrorException($request, "L'utilisateur n'existe pas !");
             }
