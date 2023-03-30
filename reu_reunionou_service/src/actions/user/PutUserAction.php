@@ -20,7 +20,10 @@ final class PutUserAction
 
         if (isset($data['name']) && isset($data['firstname']) && isset($data['email']) && isset($data['password'])) {
             if (UserService::ModifyUser($args["id"], $data)) {
-                throw new HttpNoContentException($request);
+                $response = $response->withHeader('Content-type', 'application/json;charset=utf-8')->withStatus(202);
+                $response->getBody()->write(json_encode($data));
+
+                return $response;
             } else {
                 throw new HttpInternalServerErrorException($request, "L'utilisateur n'a pû être modifié");
             }
