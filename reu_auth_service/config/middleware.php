@@ -3,7 +3,7 @@
 namespace config;
 
 use Slim\App;
-use Psr\Http\Message\ResponseInterface as Response;
+use http\CLient\Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 use auth\errors\renderer\ErrorRenderer;
