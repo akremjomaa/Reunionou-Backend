@@ -45,14 +45,14 @@ class SigninAction {
         $payload = [
             'iat' => time(),
             'exp' => time() + 3600,
-            'uid' => $user['_id']->__toString(),
+            'uid' => $user['id'],
             'lvl' => $user['userlevel']
         ];
 
         $token = JWT::encode($payload, $this->secret, 'HS512');
         $refreshToken = $this->strRand(32);
 
-        AccountService::updateRefreshToken($user['_id']->__toString(), $refreshToken);
+        AccountService::updateRefreshToken($user['id'], $refreshToken);
 
         $response = $response->withHeader('Content-type', 'application/json;charset=utf-8')->withStatus(200);
         $response->getBody()->write(json_encode([

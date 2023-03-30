@@ -49,7 +49,7 @@ final class GetValidateAction
             'username' => 1,
             'usermail' => 1,
             'userlevel' => 1,
-            '_id' => 0
+            'id' => 0
         ]);
 
         if (is_null($user)) {
