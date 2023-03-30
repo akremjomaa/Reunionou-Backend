@@ -63,8 +63,7 @@ final class SigninAction {
         return $response;
     }
 
-    private function generateAuthentificationError(Response $response, string $message = 'No authorization header present'): Response
-    {
+    private function generateAuthentificationError(Response $response, string $message = 'No authorization header present'): Response {
         $data = [
             "type" => "error",
             "error" => 401,

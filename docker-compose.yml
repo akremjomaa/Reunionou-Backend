@@ -75,10 +75,10 @@ services:
         - '19780:80'
         - '19743:443'
       volumes:
-        - './reu_auth_service/public:/var/www/public'
-        - './reu_auth_service/config:/var/www/config'
-        - './reu_auth_service/src:/var/www/src'
-        - './reu_auth_service/vendor:/var/www/vendor'
+      - './reu_auth_service/public:/var/www/public'
+      - './reu_auth_service/config:/var/www/config'
+      - './reu_auth_service/src:/var/www/src'
+      - './reu_auth_service/vendor:/var/www/vendor'
       working_dir: /var/www/
       networks:
         - reu.net
