@@ -31,6 +31,7 @@ return function (App $app) {
 
     $app->group('/comments', function (RouteCollectorProxy $app){
         $app->post('[/]', \events\actions\comment\PostCommentAction::class)->setName('postComment');
+        $app->delete('/{id}[/]', \events\actions\comment\DeleteCommentAction::class)->setName('deleteComment');
     });
 
     // user routes
