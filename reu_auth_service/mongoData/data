@@ -1,18 +1,20 @@
-[{
-  "id": 1,
-  "name": "Jomaa",
-  "firstname": "Akrem",
-  "email": "akrem@gmail.com",
-  "password": "akrem",
-  "status": 1,
-  "refresh_token": "e6241f293534857527c6f8780c6d615c949169d4fa24ae4bd7232f906f664189"
-},{
+[
+  {
+    "id": 1,
+    "name": "Jomaa",
+    "firstname": "Akrem",
+    "email": "akrem@gmail.com",
+    "password": "akrem",
+    "status": 1,
+    "refresh_token": "e6241f293534857527c6f8780c6d615c949169d4fa24ae4bd7232f906f664189"
+  },
+  {
     "id": 1,
     "name": "Zidane",
     "firstname": "Wail",
     "email": "wail@gmail.com",
     "password": "wail",
-    "status": NULL,
+    "status": null,
     "refresh_token": "e6241f293534857527c6f8780c6d615c949169d4fa24ae4bd7232f906f664189"
-  },
+  }
 ]
