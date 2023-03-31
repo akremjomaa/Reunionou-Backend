@@ -12,8 +12,6 @@ services:
   ###  api.reunionou.local
   #######################################
 
-  # service api.reunionou : api pour la organiser des réunions.
-  #
   api.reunionou:
     image: 'canals/php:latest'
     environment:
@@ -30,8 +28,8 @@ services:
     depends_on:
       - reunionou.db
 
-  # service sql pour le stockage des réunions. -
-  # utilisé par l'api reunionou
+  # Service sql pour le stockage.
+  # utilisé par l'api reunionou et l'api auth
 
   reunionou.db:
     image: 'mariadb:latest'
@@ -49,20 +47,19 @@ services:
       - './reu_reunionou_service/sql:/var/sql'
 
   #
-  # service administration des bases sql
+  # Service administration sql
   #
 
-  adminer:
-    image: adminer
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
     ports:
-      - '8080:8080'
+      - "19180:80"
     networks:
       - reu.net
 
   ######################################
-  ###  AUTH Service : service d'authentification JWT
-  ###  api api.auth : auth, check, refresh de token JWT
-  ###  utilise sa propre base de données
+  ###  AUTH Service : service d'authentification
+  ###  API : api.auth
   ######################################
   api.auth:
       image: 'canals/php:latest'
@@ -73,110 +70,9 @@ services:
         - '19780:80'
         - '19743:443'
       volumes:
-        - './reu_auth_service/public:/var/www/public'
-        - './reu_auth_service/config:/var/www/config'
-        - './reu_auth_service/src:/var/www/src'
-        - './reu_auth_service/vendor:/var/www/vendor'
+        - './reu_auth_service:/var/www'
       working_dir: /var/www/
       networks:
         - reu.net
       depends_on:
-        - mongo.auth
-
-  mongo.auth:
-        image: 'mongo:latest'
-        environment:
-          - MONGO_INITDB_ROOT_PASSWORD=authR00t
-          - MONGO_INITDB_ROOT_USERNAME=auth_reu
-          - MONGO_INITDB_DATABASE=auth_reu
-        ports:
-          - '27017:27017'
-        networks:
-          - reu.net
-        volumes:
-          - './reu_auth_service/mongoData:/var/data'
-        working_dir: /var/data
-        restart: always
-
-  mongo-express:
-        image: mongo-express
-        restart: always
-        ports:
-          - 8081:8081
-        networks:
-          - reu.net
-        environment:
-          ME_CONFIG_MONGODB_ADMINUSERNAME: root
-          ME_CONFIG_MONGODB_ADMINPASSWORD: root
-          ME_CONFIG_MONGODB_URL: mongodb://auth_reu:authR00t@mongo.auth:27017/
-
-
-  ###########################################################
-  #
-  #   Service catalogue, réalisé avec le CMS Headless Directus
-  #   Service SQL géré par postgres
-  #
-  ###########################################################
-
-#  catalogue.data:
-#    image: postgis/postgis:13-master
-#    volumes:
-#      - ./lbs_catalogue_service/data/database:/var/lib/postgresql/data
-#    networks:
-#      - lbs23.net
-#    environment:
-#      POSTGRES_USER: 'catalogue'
-#      POSTGRES_PASSWORD: 'catalogue'
-#      POSTGRES_DB: 'catalogue'
-#
-#  api.catalogue:
-#    image: directus/directus:latest
-#    ports:
-#      - 19055:8055
-#    volumes:
-#      - ./lbs_catalogue_service/uploads:/directus/uploads
-#      - ./lbs_catalogue_service/extensions:/directus/extensions
-#    networks:
-#      - lbs23.net
-#    depends_on:
-#      - catalogue.data
-#    environment:
-#      KEY: '255d861b-5ea1-5996-9aa3-922530ec40b1'
-#      SECRET: '6116487b-cda1-52c2-b5b5-c8022c45e263'
-#
-#      DB_CLIENT: 'pg'
-#      DB_HOST: 'catalogue.data'
-#      DB_PORT: '5432'
-#      DB_DATABASE: 'catalogue'
-#      DB_USER: 'catalogue'
-#      DB_PASSWORD: 'catalogue'
-#
-#      CACHE_ENABLED: 'false'
-#      ADMIN_EMAIL: 'admin@example.com'
-#      ADMIN_PASSWORD: 'd1r3ctu5'
-#
-#
-
-
-
-#######################################
-###  backoffice : web wrapper html pour la gestion du catalogue
-###  connexion avec l'api catalogue
-#######################################
-#  web.catalogue:
-#    image: 'canals/php:latest'
-#    environment:
-#      - VHOST_HOSTNAME=web.catalogue.local
-#      - VHOST_DOCROOT=/var/www/public
-#    ports:
-#      - '19480:80'
-#      - '19443:443'
-#    volumes:
-#      - './lbs_catalogue_web/public:/var/www/public'
-#      - './lbs_catalogue_web/src:/var/www/src'
-#    working_dir: /var/www/src
-#    networks:
-#      - lbs.net
-#    depends_on:
-#      - api.catalogue
-#
+        - reunionou.db
