@@ -1,4 +1,4 @@
 .env
-/vendor
+/reu_auth_service/vendor
 /config/config.db.ini
 /.idea
