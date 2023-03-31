@@ -1,5 +1,5 @@
 .env
-/vendor
+/reu_reunionou_service/vendor
 /reu_reunionou_service/config/config.db.ini
+/reu_reunionou_service/composer.lock
 /.idea
-/composer.lock
