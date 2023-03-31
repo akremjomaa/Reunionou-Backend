@@ -50,10 +50,12 @@ services:
   # Service administration sql
   #
 
-  phpmyadmin:
+  myadmin:
     image: phpmyadmin/phpmyadmin:latest
     ports:
       - "19180:80"
+    links:
+      - reunionou.db:db
     networks:
       - reu.net
 
@@ -62,17 +64,17 @@ services:
   ###  API : api.auth
   ######################################
   api.auth:
-      image: 'canals/php:latest'
-      environment:
-        - VHOST_HOSTNAME=api.auth.local
-        - VHOST_DOCROOT=/var/www/public/
-      ports:
-        - '19780:80'
-        - '19743:443'
-      volumes:
-        - './reu_auth_service:/var/www'
-      working_dir: /var/www/
-      networks:
-        - reu.net
-      depends_on:
-        - reunionou.db
+    image: 'canals/php:latest'
+    environment:
+      - VHOST_HOSTNAME=api.auth.local
+      - VHOST_DOCROOT=/var/www/public/
+    ports:
+      - '19780:80'
+      - '19743:443'
+    volumes:
+      - './reu_auth_service:/var/www'
+    working_dir: /var/www/
+    networks:
+      - reu.net
+    depends_on:
+      - reunionou.db
