@@ -7,7 +7,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Slim\Exception\HttpMethodNotAllowedException;
 use Throwable;
 
-use events\errors\renderer\ErrorRenderer;
+use auth\errors\renderer\ErrorRenderer;
 use Psr\Http\Message\ResponseInterface;
 use Slim\App;
 
