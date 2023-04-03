@@ -41,7 +41,7 @@ final class EventService {
 
     public function getEventInvitations(string $id): array
     {
-        $invitations = Invitation::select('invitation.id','invitation.date','invitation.status as invitation_status','user.name as invited_name','user.firstname as invited_firstName','user.email as invited_email')->where('event_id', '=', $id)->join('user','invitation.user_id','=','user.id')->get();
+        $invitations = Invitation::select('invitation.id','invitation.invitation_date','invitation.status as invitation_status','user.name as invited_name','user.firstname as invited_firstName','user.email as invited_email')->where('event_id', '=', $id)->join('user','invitation.user_id','=','user.id')->get();
 
         return $invitations->toArray();
     }
@@ -98,6 +98,18 @@ public function  postEvent(array $data) : Event{
     }
     return $event;
 }
+    public function updateEvent(string $id,array $data): void
+    {
+        try {
+            $event = Event::findOrFail($id);
+        }catch (ModelNotFoundException $e){
+            throw new EventExceptionNotFound("event $id not found");
+        }
+
+        $event->status = $data['event_status'];
+
+        $event->save();
+    }
 
 
 }
