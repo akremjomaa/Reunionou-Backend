@@ -15,9 +15,11 @@ CREATE TABLE `user`
     `firstname` varchar(128) NOT NULL,
     `email`     varchar(255) NOT NULL,
     `password`  varchar(128) NOT NULL,
-    `status`    tinyint(4) DEFAULT NULL,
+    `status` varchar(255) DEFAULT NULL,
+    `refresh_token`    varchar(255) NOT NULL,
     PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=armscii8 COLLATE=armscii8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 
 DROP TABLE IF EXISTS `event`;
 CREATE TABLE `event`
@@ -27,41 +29,40 @@ CREATE TABLE `event`
     `description` text DEFAULT NULL,
     `lieu`        varchar(255) NOT NULL,
     `date`        datetime     NOT NULL,
-    `status`      tinyint(4) NOT NULL,
+    `status` varchar(255) NOT NULL,
     `user_id`     int(11) NOT NULL,
     PRIMARY KEY (`id`),
     KEY           `user_id` (`user_id`),
     CONSTRAINT `event_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=armscii8 COLLATE=armscii8_general_ci;
-
-DROP TABLE IF EXISTS `comment`;
-CREATE TABLE `comment`
-(
-    `id`        int(11) NOT NULL AUTO_INCREMENT,
-    `content`   varchar(255) NOT NULL,
-    `event_id`  int(11) NOT NULL,
-    `user_id`   int(11) DEFAULT NULL,
-    `user_name` varchar(255) DEFAULT NULL,
-    PRIMARY KEY (`id`),
-    KEY         `event_id` (`event_id`),
-    KEY         `user_id` (`user_id`),
-    CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`),
-    CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=armscii8 COLLATE=armscii8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 DROP TABLE IF EXISTS `invitation`;
-CREATE TABLE `invitation`
-(
-    `id`       int(11) NOT NULL AUTO_INCREMENT,
-    `date`     datetime DEFAULT NULL,
-    `status`   tinyint(4) DEFAULT NULL,
-    `user_id`  int(11) NOT NULL,
-    `event_id` int(11) NOT NULL,
-    PRIMARY KEY (`id`),
-    KEY        `event_id` (`event_id`),
-    KEY        `user_id` (`user_id`),
-    CONSTRAINT `invitation_ibfk_5` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`),
-    CONSTRAINT `invitation_ibfk_6` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=armscii8 COLLATE=armscii8_general_ci;
+CREATE TABLE `invitation` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `invitation_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE current_timestamp(),
+  `user_id` int(11) DEFAULT NULL,
+  `event_id` int(11) DEFAULT NULL,
+  `status` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unique_invitation` (`user_id`,`event_id`),
+  KEY `event_id` (`event_id`),
+  CONSTRAINT `invitation_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  CONSTRAINT `invitation_ibfk_2` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- 2023-03-29 14:02:26
+DROP TABLE IF EXISTS `comment`;
+CREATE TABLE `comment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `content` varchar(255) NOT NULL,
+  `event_id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `user_name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `event_id` (`event_id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`),
+  CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- 2023-04-03 07:34:05
+

@@ -16,6 +16,6 @@ class Invitation extends  Model{
     }
     public function event(): BelongsTo
     {
-        return $this->belongsTo(Event::class, 'id');
+        return $this->belongsTo(Event::class, 'id', 'id');
     }
 }

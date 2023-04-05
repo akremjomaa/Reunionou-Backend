@@ -2,6 +2,8 @@
 
 namespace events\services\utils;
 
+use events\models\Event;
+use events\models\Invitation;
 use events\models\User;
 
 final class UserService {
@@ -11,7 +13,18 @@ final class UserService {
         $query = User::select('id', 'firstname', 'name as lastname', 'email', 'password', 'status');
         return $query->get()->toArray();
     }
+    public function getUserInvitations(string $id): array
+    {
+        $invitations = Invitation::select('id','status as invitation_status')->where('user_id', '=', $id)->with('event')->get();
 
+        return $invitations->toArray();
+    }
+    public function getUserEvents(string $id): array
+    {
+        $events = Event::select('id','title as event_title','description as event_description','lieu as event_place', 'date as event_date','status as event_status')->where('user_id', '=', $id)->get();
+
+        return $events->toArray();
+    }
     // get user by id
     public static function getUserById(int $id) {
         $query = User::select('id', 'firstname', 'name as lastname', 'email', 'password', 'status')->where('id', '=', $id);

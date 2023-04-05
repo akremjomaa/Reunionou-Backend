@@ -3,6 +3,11 @@
 namespace config;
 
 use events\actions\event\GetEventByIdAction;
+use events\actions\event\UpdateEventByIdAction;
+use events\actions\invitation\GetInvitationByIdAction;
+use events\actions\invitation\UpdateInvitationByIdAction;
+use events\actions\user\GetUserEventsByIdAction;
+use events\actions\user\GetUserInvitationsByIdAction;
 use Slim\App;
 use Slim\Exception\HttpNotFoundException;
 use Slim\Routing\RouteCollectorProxy;
@@ -19,12 +24,17 @@ return function (App $app) {
         $app->get('/{id}/invitations[/]', \events\actions\event\GetEventInvitationsByIdAction::class)->setName('getEventInvitationsById');
         $app->get('/{id}/comments[/]', \events\actions\event\GetEventCommentsByIdAction::class)->setName('getEventCommentsById');
         $app->post('[/]', \events\actions\event\PostEventAction::class)->setName('postEvent');
+        $app->put('/{id}[/]', UpdateEventByIdAction::class)->setName('updateEvent');
+
 
     });
 
     // invitation routes
     $app->group('/invitations', function (RouteCollectorProxy $app){
+        $app->get('/{id}[/]', GetInvitationByIdAction::class)->setName('getInvitationById');
         $app->post('[/]', \events\actions\invitation\PostInvitationAction::class)->setName('postInvitation');
+        $app->put('/{id}[/]', UpdateInvitationByIdAction::class)->setName('updateInvitation');
+
     });
 
     // comment routes
@@ -39,7 +49,10 @@ return function (App $app) {
        $app->group('/users', function (RouteCollectorProxy $app) {
         $app->get('[/]', \events\actions\user\GetUsersAction::class)->setName('users');
         $app->get('/{id}[/]', \events\actions\user\GetUserByIdAction::class)->setName('user');
-        $app->post('[/]', \events\actions\user\PostUserAction::class)->setName('create-user');
+           $app->get('/{id}/invitations[/]', GetUserInvitationsByIdAction::class)->setName('getUserInvitationsById');
+           $app->get('/{id}/events[/]', GetUserEventsByIdAction::class)->setName('getUserEventsById');
+
+           $app->post('[/]', \events\actions\user\PostUserAction::class)->setName('create-user');
         $app->put('/{id}[/]', \events\actions\user\PutUserAction::class)->setName('modify-user');
         $app->delete('/{id}[/]', \events\actions\user\DeleteUserAction::class)->setName('delete-user');
    });
