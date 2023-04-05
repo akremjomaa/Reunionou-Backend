@@ -10,6 +10,8 @@ class Event extends  Model{
     protected $table = 'event';
     protected  $primaryKey = 'id';
     public $timestamps = false;
+    public $incrementing = false;
+    public $keyType = 'string';
 
    // protected $dates = ['date'];
     public function user(): BelongsTo

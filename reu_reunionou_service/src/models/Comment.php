@@ -9,6 +9,8 @@ class Comment extends  Model{
     protected $table = 'comment';
     protected  $primaryKey = 'id';
     public $timestamps = false;
+    public $incrementing = false;
+    public $keyType = 'string';
 
     public function user(): BelongsTo
     {
