@@ -9,6 +9,8 @@ class Invitation extends  Model{
     protected $table = 'invitation';
     protected  $primaryKey = 'id';
     public $timestamps = false;
+    public $incrementing = false;
+    public $keyType = 'string';
 
     public function invited(): BelongsTo
     {
