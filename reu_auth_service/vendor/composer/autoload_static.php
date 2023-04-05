@@ -31,13 +31,13 @@ class ComposerStaticIniteb9e75c07dc4cc42eb01eb33e3ea25ae
         array (
             'voku\\' => 5,
         ),
-        'e' => 
-        array (
-            'events\\' => 7,
-        ),
         'c' => 
         array (
             'config\\' => 7,
+        ),
+        'a' => 
+        array (
+            'auth\\' => 5,
         ),
         'S' => 
         array (
@@ -121,13 +121,13 @@ class ComposerStaticIniteb9e75c07dc4cc42eb01eb33e3ea25ae
         array (
             0 => __DIR__ . '/..' . '/voku/portable-ascii/src/voku',
         ),
-        'events\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/src',
-        ),
         'config\\' => 
         array (
             0 => __DIR__ . '/../..' . '/config',
+        ),
+        'auth\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src',
         ),
         'Symfony\\Polyfill\\Php80\\' => 
         array (

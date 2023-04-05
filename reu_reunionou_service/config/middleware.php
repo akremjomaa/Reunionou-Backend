@@ -8,6 +8,7 @@ use Slim\Exception\HttpMethodNotAllowedException;
 use Throwable;
 
 use events\errors\renderer\ErrorRenderer;
+use Psr\Http\Message\ResponseInterface;
 use Slim\App;
 
 
@@ -37,11 +38,14 @@ return function (App $app) {
     $errorHandler->registerErrorRenderer('application/json', ErrorRenderer::class);
     $errorHandler->forceContentType('application/json');
 
-    $errorMiddleware->setErrorHandler(HttpMethodNotAllowedException::class, function (ServerRequestInterface $request, Throwable $exception, bool $displayErrorDetails): Response
+    $errorMiddleware->setErrorHandler(HttpMethodNotAllowedException::class, function (ServerRequestInterface $request, Throwable $exception, bool $displayErrorDetails): ResponseInterface
     {
-        $response = new Response();
+        $response = new \Slim\Psr7\Response();
         $response->getBody()->write('405 method not allowed.');
 
         return $response->withStatus(405);
     });
+
+
+    
 };

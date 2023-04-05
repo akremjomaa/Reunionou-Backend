@@ -16,7 +16,7 @@ CREATE TABLE `user`
     `email`     varchar(255) NOT NULL,
     `password`  varchar(128) NOT NULL,
     `status`    tinyint(4) DEFAULT NULL,
-    `refresh_token`    int(128) NOT NULL,
+    `refresh_token`    varchar(255) NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=armscii8 COLLATE=armscii8_general_ci;
 

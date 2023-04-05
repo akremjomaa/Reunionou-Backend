@@ -15,8 +15,8 @@
     },
     "autoload": {
         "psr-4": {
-            "config\\": "./config/",
-            "events\\": "./src/"
+            "auth\\": "./src/",
+            "config\\": "./config/"
         }
     }
 }

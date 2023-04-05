@@ -6,7 +6,7 @@ use auth\models\User;
 
 final class AccountService {
 
-    public function getUserByUsername(string $username): ?User {
+    public static function getUserByUsername(string $username): ?User {
         return User::select('id', 'name', 'firstname', 'email', 'password', 'status', 'refresh_token')
                 ->where('email', '=', $username)
                 ->firstOrFail();
