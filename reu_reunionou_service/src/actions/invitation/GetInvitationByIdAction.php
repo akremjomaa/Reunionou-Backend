@@ -3,6 +3,7 @@ namespace events\actions\invitation;
 
 
 use events\errors\exceptions\EventExceptionNotFound;
+use events\errors\exceptions\InvitationExceptionNotFound;
 use events\services\utils\EventService;
 use events\services\utils\InvitationService;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -28,7 +29,7 @@ final class GetInvitationByIdAction
             $invitationService = new InvitationService();
             $routeParser = RouteContext::fromRequest($request)->getRouteParser();
             $invitation = $invitationService->getInvitationById($args['id'], $embeds);
-        } catch (EventExceptionNotFound $e) {
+        } catch (InvitationExceptionNotFound $e) {
             throw new HttpNotFoundException($request, $e->getMessage());
         }
 

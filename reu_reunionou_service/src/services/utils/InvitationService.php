@@ -15,13 +15,15 @@ final class InvitationService{
         $query = Invitation::select()->where('id', '=', $id);
         if ($embeds !== null){
             foreach ($embeds as $embed) {
-                if ($embed === 'user'){
-                    $query = $query->with(['user' => function($query){
+                if ($embed === 'invited'){
+                    $query = $query->with(['invited' => function($query){
                         $query->select('id','name','firstname','email');
                     }]);
                     // echo($query);
                 } else if ($embed === 'event') {
-                    $query = $query->with('event');
+                    $query = $query->with(['event' => function($query){
+                        $query->select('id','title');
+                    }]);
                 }
             }
         }
@@ -52,7 +54,7 @@ final class InvitationService{
 
 
             if (isset($invitedId)){
-                $invitation->user_id = $invitedId;
+                $invitation->invited_id = $invitedId;
 
             }
             if (isset($data['event'])) {

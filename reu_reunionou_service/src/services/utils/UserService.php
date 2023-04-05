@@ -15,7 +15,9 @@ final class UserService {
     }
     public function getUserInvitations(string $id): array
     {
-        $invitations = Invitation::select('id','status as invitation_status')->where('user_id', '=', $id)->with('event')->get();
+      //  $invitations = Invitation::select('id','status as invitation_status')->where('invited_id', '=', $id)->with('event')->get();
+  $invitations = Invitation::select('invitation.id','invitation.status','event.title','event.description','event.date','event.lieu','event.status as event_status')->where('invitation.invited_id', '=', $id)->join('event','invitation.event_id','=','event.id')->get();
+
 
         return $invitations->toArray();
     }
