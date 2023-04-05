@@ -40,13 +40,14 @@ DROP TABLE IF EXISTS `invitation`;
 CREATE TABLE `invitation` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `invitation_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE current_timestamp(),
-  `user_id` int(11) DEFAULT NULL,
+  `invited_id` int(11) DEFAULT NULL,
   `event_id` int(11) DEFAULT NULL,
   `status` varchar(50) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `unique_invitation` (`user_id`,`event_id`),
   KEY `event_id` (`event_id`),
-  CONSTRAINT `invitation_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  KEY `invited_id` (`invited_id`),
+
+  CONSTRAINT `invitation_ibfk_1` FOREIGN KEY (`invited_id`) REFERENCES `user` (`id`),
   CONSTRAINT `invitation_ibfk_2` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

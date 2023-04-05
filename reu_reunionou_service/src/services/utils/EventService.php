@@ -41,7 +41,7 @@ final class EventService {
 
     public function getEventInvitations(string $id): array
     {
-        $invitations = Invitation::select('invitation.id','invitation.invitation_date','invitation.status as invitation_status','user.name as invited_name','user.firstname as invited_firstName','user.email as invited_email')->where('event_id', '=', $id)->join('user','invitation.user_id','=','user.id')->get();
+        $invitations = Invitation::select('invitation.id','invitation.invitation_date','invitation.status','user.name as invited_name','user.firstname as invited_firstName','user.email as invited_email')->where('event_id', '=', $id)->join('user','invitation.invited_id','=','user.id')->get();
 
         return $invitations->toArray();
     }
@@ -50,7 +50,7 @@ final class EventService {
 
     public function getEventComments(string $id): array
     {
-        $Comments = Comment::select('comment.id','comment.content','comment.user_name','user.name as invited_name','user.firstname as invited_firstName','user.email as invited_email')->where('event_id', '=', $id)->join('user','comment.user_id','=','user.id')->get();
+        $Comments = Comment::select('comment.id','comment.content','comment.user_name','user.name as invited_name','user.firstname as invited_firstName','user.email as invited_email')->where('event_id', '=', $id)->join('user','comment.invited_id','=','user.id')->get();
 
         return $Comments->toArray();
     }
@@ -61,12 +61,12 @@ final class EventService {
         $query = Event::select('id', 'title as event_title', 'description as event_description', 'lieu as event_place','date as event_date','status as event_status','user_id as created_by')->where('id', '=', $id);
         if ($embeds !== null){
             foreach ($embeds as $embed) {
-                if ($embed === 'user'){
-                    $query = $query->with(['user' => function($query){
+                if ($embed === 'creator'){
+                    $query = $query->with(['creator' => function($query){
                         $query->select('id','name','firstname','email');
                     }]);
                     // echo($query);
-                } else if ($embed === 'invitations') {
+                } else if ($embed ==='invitations') {
                     $query = $query->with('invitations');
                 }
                 else if ($embed === 'comments'){
@@ -79,7 +79,7 @@ final class EventService {
         try {
             return $query->firstOrFail()->toArray();
         }catch (ModelNotFoundException $e) {
-            throw new EventExceptionNotFound("order $id not found");
+            throw new EventExceptionNotFound("event $id not found");
         }
     }
 

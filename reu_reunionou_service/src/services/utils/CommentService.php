@@ -14,7 +14,7 @@ final class CommentService{
         $comment->event_id = $data['event'];
 
         if (isset($data['created_by'])) {
-            $comment->user_id = $data['created_by'];
+            $comment->invited_id = $data['created_by'];
         }
         if (isset($data['username'])) {
             $comment->user_name = $data['username'];

@@ -10,13 +10,13 @@ class Comment extends  Model{
     protected  $primaryKey = 'id';
     public $timestamps = false;
 
-    public function user(): BelongsTo
+    public function commentator(): BelongsTo
     {
-        return $this->belongsTo('events\models\User', 'id');
+        return $this->belongsTo('events\models\User', 'invited_id');
     }
 
     public function event(): BelongsTo
     {
-        return $this->belongsTo('events\models\Event', 'id');
+        return $this->belongsTo('events\models\Event', 'event_id');
     }
 }
