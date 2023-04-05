@@ -3,5 +3,5 @@
 /reu_auth_service/vendor/
 /reu_auth_service/composer.lock
 /reu_reunionou_service/config/config.db.ini
-/reu_reunionou_service/composer.lock
 /.idea
+/reu_reunionou_service/composer.lock

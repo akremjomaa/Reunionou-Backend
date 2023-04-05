@@ -14,17 +14,17 @@ class Event extends  Model{
     public $keyType = 'string';
 
    // protected $dates = ['date'];
-    public function user(): BelongsTo
+    public function creator(): BelongsTo
     {
-        return $this->belongsTo('events\models\User', 'id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function comments(): HasMany
     {
-        return $this->hasMany('events\models\Comment', 'id');
+        return $this->hasMany('events\models\Comment', 'event_id');
     }
     public function invitations(): HasMany
     {
-        return $this->hasMany('events\models\Invitation', 'id');
+        return $this->hasMany('events\models\Invitation', 'event_id');
     }
 }
