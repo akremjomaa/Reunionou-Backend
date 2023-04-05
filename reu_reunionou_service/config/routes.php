@@ -4,6 +4,8 @@ namespace config;
 
 use events\actions\event\GetEventByIdAction;
 use events\actions\event\UpdateEventByIdAction;
+use events\actions\invitation\GetInvitationByIdAction;
+use events\actions\invitation\UpdateInvitationByIdAction;
 use events\actions\user\GetUserEventsByIdAction;
 use events\actions\user\GetUserInvitationsByIdAction;
 use Slim\App;
@@ -29,7 +31,10 @@ return function (App $app) {
 
     // invitation routes
     $app->group('/invitations', function (RouteCollectorProxy $app){
+        $app->get('/{id}[/]', GetInvitationByIdAction::class)->setName('getInvitationById');
         $app->post('[/]', \events\actions\invitation\PostInvitationAction::class)->setName('postInvitation');
+        $app->put('/{id}[/]', UpdateInvitationByIdAction::class)->setName('updateInvitation');
+
     });
 
     // comment routes

@@ -62,8 +62,10 @@ final class EventService {
         if ($embeds !== null){
             foreach ($embeds as $embed) {
                 if ($embed === 'user'){
-                    $query = $query->with('user');
-                   // echo($query);
+                    $query = $query->with(['user' => function($query){
+                        $query->select('id','name','firstname','email');
+                    }]);
+                    // echo($query);
                 } else if ($embed === 'invitations') {
                     $query = $query->with('invitations');
                 }
@@ -105,8 +107,18 @@ public function  postEvent(array $data) : Event{
         }catch (ModelNotFoundException $e){
             throw new EventExceptionNotFound("event $id not found");
         }
-
-        $event->status = $data['event_status'];
+        if (isset($data['event_title'])) {
+            $event->title = $data['event_title'];
+        }
+        if (isset($data['event_description'])) {
+            $event->description = $data['event_description'];
+        }
+        if (isset($data['event_place'])) {
+            $event->lieu = $data['event_place'];
+        }
+        if (isset($data['event_status'])) {
+            $event->status = $data['event_status'];
+        }
 
         $event->save();
     }
