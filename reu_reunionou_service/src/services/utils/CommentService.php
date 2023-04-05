@@ -28,4 +28,13 @@ final class CommentService{
         return $comment;
     }
 
+    public static function DeleteComment(int $id) {
+        try {
+            $query = Comment::find($id);
+            return $query->delete();
+        } catch (\Throwable $ex) {
+            throw $ex;
+        }
+    }
+
 }

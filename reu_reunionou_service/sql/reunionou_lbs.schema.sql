@@ -20,6 +20,7 @@ CREATE TABLE `user`
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+
 DROP TABLE IF EXISTS `event`;
 CREATE TABLE `event`
 (
@@ -64,3 +65,4 @@ CREATE TABLE `comment` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- 2023-04-03 07:34:05
+
