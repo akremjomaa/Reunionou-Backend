@@ -28,7 +28,7 @@ final class UserService {
         return $events->toArray();
     }
     // get user by id
-    public static function getUserById(int $id) {
+    public static function getUserById(string $id) {
         $query = User::select('id', 'firstname', 'name as lastname', 'email', 'password', 'status')->where('id', '=', $id);
         return $query->get()->toArray();
     }
@@ -52,7 +52,7 @@ final class UserService {
     }
 
     // update user by id
-    public static function ModifyUser(int $id, array $data) {
+    public static function ModifyUser(string $id, array $data) {
         try {
             $query = User::find($id);
             $query->name = filter_var($data["name"], FILTER_SANITIZE_SPECIAL_CHARS);
@@ -67,7 +67,7 @@ final class UserService {
     }
 
     // delete user by id
-    public static function DeleteUser(int $id) {
+    public static function DeleteUser(string $id) {
         try {
             $query = User::find($id);
             return $query->delete();
