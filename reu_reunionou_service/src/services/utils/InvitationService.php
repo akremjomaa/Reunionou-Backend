@@ -21,9 +21,7 @@ final class InvitationService{
                     }]);
                     // echo($query);
                 } else if ($embed === 'event') {
-                    $query = $query->with(['event' => function($query){
-                        $query->select('id','title');
-                    }]);
+                    $query = $query->with('event');
                 }
             }
         }
