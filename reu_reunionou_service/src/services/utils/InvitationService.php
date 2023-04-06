@@ -68,7 +68,7 @@ final class InvitationService{
         return $invitations;
     }
 
-    public function updateInvitation(int $id , array $data) : void {
+    public function updateInvitation(string $id , array $data) : void {
         try {
             $invitation = Invitation::findOrFail($id);
         }catch (ModelNotFoundException $e){
