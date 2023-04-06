@@ -21,9 +21,7 @@ final class InvitationService{
                     }]);
                     // echo($query);
                 } else if ($embed === 'event') {
-                    $query = $query->with(['event' => function($query){
-                        $query->select('id','title');
-                    }]);
+                    $query = $query->with('event');
                 }
             }
         }
@@ -70,7 +68,7 @@ final class InvitationService{
         return $invitations;
     }
 
-    public function updateInvitation(int $id , array $data) : void {
+    public function updateInvitation(string $id , array $data) : void {
         try {
             $invitation = Invitation::findOrFail($id);
         }catch (ModelNotFoundException $e){

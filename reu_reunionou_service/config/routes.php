@@ -51,7 +51,6 @@ return function (App $app) {
         $app->get('/{id}[/]', \events\actions\user\GetUserByIdAction::class)->setName('user');
            $app->get('/{id}/invitations[/]', GetUserInvitationsByIdAction::class)->setName('getUserInvitationsById');
            $app->get('/{id}/events[/]', GetUserEventsByIdAction::class)->setName('getUserEventsById');
-
            $app->post('[/]', \events\actions\user\PostUserAction::class)->setName('create-user');
         $app->put('/{id}[/]', \events\actions\user\PutUserAction::class)->setName('modify-user');
         $app->delete('/{id}[/]', \events\actions\user\DeleteUserAction::class)->setName('delete-user');

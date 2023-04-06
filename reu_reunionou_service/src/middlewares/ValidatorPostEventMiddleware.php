@@ -10,7 +10,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Exception\HttpBadRequestException;
 
-class ValidatorPostOrderMiddleware
+class ValidatorPostEventMiddleware
 {
     public function __invoke(Request $request, RequestHandler $next): Response
     {
