@@ -2,13 +2,14 @@
 
 namespace config;
 
+use auth\middlewares\CorsMiddleware;
 use http\Client\Response;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Exception\HttpMethodNotAllowedException;
+use Slim\Exception\HttpNotFoundException;
 use Throwable;
 
 use auth\errors\renderer\ErrorRenderer;
-use Psr\Http\Message\ResponseInterface;
 use Slim\App;
 
 
@@ -20,14 +21,7 @@ return function (App $app) {
         return $response;
     });
 
-    $app->add(function ($request, $handler) {
-        $response = $handler->handle($request);
-        return $response
-            ->withHeader('Access-Control-Allow-Origin', '*')
-            ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
-            ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS')
-           ->withHeader('Access-Control-Allow-Credentials', 'true');
-    });
+    $app->add(new CorsMiddleware());
 
 
 
@@ -38,14 +32,11 @@ return function (App $app) {
     $errorHandler->registerErrorRenderer('application/json', ErrorRenderer::class);
     $errorHandler->forceContentType('application/json');
 
-    $errorMiddleware->setErrorHandler(HttpMethodNotAllowedException::class, function (ServerRequestInterface $request, Throwable $exception, bool $displayErrorDetails): ResponseInterface
+    $errorMiddleware->setErrorHandler(HttpMethodNotAllowedException::class, function (ServerRequestInterface $request, Throwable $exception, bool $displayErrorDetails): Response
     {
-        $response = new \Slim\Psr7\Response();
+        $response = new Response();
         $response->getBody()->write('405 method not allowed.');
 
         return $response->withStatus(405);
     });
-
-
-    
 };

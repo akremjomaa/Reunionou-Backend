@@ -19,7 +19,7 @@ final class AccountService {
                 ->firstOrFail();
     }
     
-    public static function updateRefreshToken(int $id, string $refreshToken): void {
+    public static function updateRefreshToken(string $id, string $refreshToken): void {
         User::where('id', '=', $id)
         ->update(['refresh_token' => $refreshToken]);
     }
