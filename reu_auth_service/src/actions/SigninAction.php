@@ -24,7 +24,7 @@ class SigninAction {
         $tokenDecode = base64_decode($tokenEncode, true);
 
         // base64_decode est en mode strict donc elle peut retourner false
-        // si la chaine de caractère contient des caractères qui ne sont pas
+  Z      // si la chaine de caractère contient des caractères qui ne sont pas
         // acceptés par base64
         if ($tokenDecode === false) {
             return $this->generateAuthentificationError($response, 'Error processing token');
