@@ -2,14 +2,14 @@
 
 namespace config;
 
-use events\middlewares\CorsMiddleware;
+use auth\middlewares\CorsMiddleware;
 use http\Client\Response;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Exception\HttpMethodNotAllowedException;
 use Slim\Exception\HttpNotFoundException;
 use Throwable;
 
-use events\errors\renderer\ErrorRenderer;
+use auth\errors\renderer\ErrorRenderer;
 use Slim\App;
 
 

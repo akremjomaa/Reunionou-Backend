@@ -9,13 +9,15 @@ class Invitation extends  Model{
     protected $table = 'invitation';
     protected  $primaryKey = 'id';
     public $timestamps = false;
+    public $incrementing = false;
+    public $keyType = 'string';
 
-    public function user(): BelongsTo
+    public function invited(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'id');
+        return $this->belongsTo(User::class, 'invited_id');
     }
     public function event(): BelongsTo
     {
-        return $this->belongsTo(Event::class, 'id');
+        return $this->belongsTo(Event::class, 'event_id');
     }
 }
