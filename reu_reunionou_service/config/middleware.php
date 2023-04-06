@@ -32,8 +32,7 @@ return function (App $app) {
     $errorHandler->registerErrorRenderer('application/json', ErrorRenderer::class);
     $errorHandler->forceContentType('application/json');
 
-    $errorMiddleware->setErrorHandler(HttpMethodNotAllowedException::class, function (ServerRequestInterface $request, Throwable $exception, bool $displayErrorDetails): Response
-    {
+    $errorMiddleware->setErrorHandler(HttpMethodNotAllowedException::class, function (ServerRequestInterface $request, Throwable $exception, bool $displayErrorDetails): Response {
         $response = new Response();
         $response->getBody()->write('405 method not allowed.');
 
